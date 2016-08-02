@@ -61,6 +61,12 @@ html {
  .links-container .navbar-link:hover {
      color: rgb(233,50,117);
  }
+
+.links-container a:active {
+    background-color: white;
+    color: rgb(233,50,117);  /* red; */
+}
+
 .container {
      margin: 0 auto;
      max-width: 64rem;
