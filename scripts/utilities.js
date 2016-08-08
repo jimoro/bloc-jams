@@ -1,10 +1,5 @@
 function forEach(arrayIn, callback) {
-    console.log("forEach is executing.")
-    console.log("arrayIn parameter contains: " + arrayIn);
-    
-    for (var i = 0; i < arrayIn.length; i++) {
-        console.log("For iteration " + i + " of the forEach loop arrayIn[" + i + "] is " + arrayIn[i]);
-    
+        for (var i = 0; i < arrayIn.length; i++) {
         callback(arrayIn[i]);
     }
 }
