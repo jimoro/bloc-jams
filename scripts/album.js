@@ -32,6 +32,22 @@ var albumMarconi = {
     ]
 };
 
+//Yet Another Example Album
+var albumDali = {
+    title: 'The Persistence of Memory',
+    artist: 'Salvador Dali',
+    label: 'Surrealism',
+    year: '1931',
+    albumArtUrl: 'https://mangelocuaycong.files.wordpress.com/2013/08/the-persistence-of-memory.jpg',
+    songs: [
+        { title: 'Anteater On a Leash', duration: '2:02' },
+        { title: 'Madrid and Paris', duration: '4:20' },
+        { title: 'Elephant and Obelisk', duration: '2:13' },
+        { title: 'Metamorphosis of Narcissus', duration: '3:54' },
+        { title: 'Freud and Heisenberg', duration: '2:15' }
+    ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
         '<tr class="album-view-song-item">'
@@ -44,14 +60,14 @@ var createSongRow = function(songNumber, songName, songLength) {
     return template;
 };
 
+// #1 - Select elements that we want to populate with text dynamically
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
 var setCurrentAlbum = function(album) {
-    // #1
-    var albumTitle = document.getElementsByClassName('album-view-title')[0];
-    var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-    var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-    var albumImage = document.getElementsByClassName('album-cover-art')[0];
-    var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
-    
     // #2
     albumTitle.firstChild.nodeValue = album.title;
     albumArtist.firstChild.nodeValue = album.artist;
@@ -63,11 +79,19 @@ var setCurrentAlbum = function(album) {
     
     // #4
     for (var i = 0; i < album.songs.length; i++) {
-        albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
-        
+        albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);        
     }
 };
 
 window.onload = function() {
-    setCurrentAlbum(albumMarconi);
+    setCurrentAlbum(albumPicasso);
+    
+    var theAlbums = [albumPicasso, albumMarconi, albumDali];
+    var i2 = 1;
+    albumImage.addEventListener("click", function(event) {
+        setCurrentAlbum(theAlbums[i2++]);
+        if (i2 == theAlbums.length) {
+            i2 = 0;
+        }
+    });
 };
