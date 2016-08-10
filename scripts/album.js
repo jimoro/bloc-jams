@@ -35,7 +35,7 @@ var albumMarconi = {
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
         '<tr class="album-view-song-item">'
-    + '     <td class="song-item-number">' + songNumber + '</td>'
+    + '     <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
     + '     <td class="song-item-title">' + songName + '</td>'
     + '     <td class="song-item-duration">' + songLength + '</td>'
     + '     </tr>'
@@ -67,7 +67,34 @@ var setCurrentAlbum = function(album) {
         
     }
 };
+// The target parent element is the table with the class .album-view-song-list. Store the selected table in a variable and add a listener to it for the mouseover event in album.js 
+var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
+
+var songRows = document.getElementsByClassName('album-view-song-item');
+
+// Album button templates
+var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+
 
 window.onload = function() {
-    setCurrentAlbum(albumMarconi);
+    setCurrentAlbum(albumPicasso);
+    
+    songListContainer.addEventListener('mouseover', function(event) {
+         // Target only individual song rows during event delegation (not all rows)
+        if (event.target.parentElement.className === 'album-view-song-item') {
+            // Change the content from the track number to the play button's HTML
+            event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+            // The querySelector() method was used (above) because we only need to return a single element with the .song-item-number class
+        }
+     });
+    // The target property on the event object above stores the DOM element where the event occurred.
+    
+    for (var i = 0; i < songRows.length; i++) {
+        songRows[i].addEventListener('mouseleave', function(event) {
+            // Revert the content back to the number (from the play button)
+            // Selects first child element, which is the song-item-number element
+            this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
+        });
+    }
 };
+// or should it now be just '}' as in the checkpoint 12 section adding the mouseleave event
