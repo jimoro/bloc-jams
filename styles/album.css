@@ -4,6 +4,7 @@
      background-attachment: fixed;
      background-position: center center;
      background-size: cover;
+     padding-bottom: 200px;    /* Reserve space at the bottom of the page for the player controls (see player_bar.css) to ensure that they don't cover any content' */
  }
  
  .album-cover-art {
